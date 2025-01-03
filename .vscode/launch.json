@@ -41,6 +41,39 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "Debug R Zip Decompress with Args",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/rzip",
+            "args": ["-d", "${input:decompressArgs}", "{input:decompressArgs2}"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "decompressArgs",
+            "type": "promptString",
+            "description": "Enter arguments for decompression",
+            "default": "test/test.txt.rz"
+        },
+        {
+            "id": "decompressArgs2",
+            "type": "promptString",
+            "description": "Enter arguments for decompression",
+            "default": "test/test.t.txt"
         }
     ]
 }
