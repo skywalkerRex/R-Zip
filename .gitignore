@@ -8,3 +8,4 @@
 *.rz
 
 build/*
+test/*
