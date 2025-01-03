@@ -7,11 +7,13 @@ option(DECOMPRASS_DEBUG_BUILD "Is in Decompress Debug Build" FALSE)
 option(DEBUG_BUILD "Is in Debug Build" FALSE)
 option(RELEASE_BUILD "Is in Release Build" FALSE)
 
-add_library(huffmanLib STATIC HuffmanTree.cpp HuffmanTree.hpp HuffmanCoder.cpp HuffmanCoder.hpp)
+# Add subdirectory for HuffmanAlgo
+add_subdirectory(HuffmanAlgo)
 
 add_executable(rzip rzip.cpp)
 
-target_link_libraries(rzip PRIVATE huffmanLib)
+# Link HuffmanAlgo library
+target_link_libraries(rzip HuffmanAlgo)
 
 if(COMPRASS_DEBUG_BUILD)
     add_compile_definitions(IS_COMPRASS_DEBUG_BUILD=1)
@@ -39,6 +41,4 @@ endif()
 
 target_compile_features(rzip PUBLIC cxx_std_17)
 
-set_target_properties( rzip
-                        PROPERTIES
-                            CUDA_SEPARABLE_COMPILATION ON)
+set_target_properties(rzip PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
