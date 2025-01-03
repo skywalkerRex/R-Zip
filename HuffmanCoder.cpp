@@ -76,10 +76,14 @@ namespace HuffmanCoder{
             return {"Unknow to rebuild the Huffman Tree"};
         }
 
-        auto inputIt = srcData.begin() + 4 + (9*mapSize) + 1;
+        auto inputIt = srcData.begin() + 4 + (9*mapSize);
+        auto lastValidBits = (*(inputIt++) + 7)%8 + 1;
 
         for(; inputIt != srcData.end(); inputIt++){
-            for(int i=0; i<8; i++){
+            int numberOfBitsToSearch = 8;
+            if(inputIt == srcData.end()-1)
+                numberOfBitsToSearch = lastValidBits;
+            for(int i=0; i<numberOfBitsToSearch; i++){
                 auto currBit = (*inputIt) & (1 << i);
                 auto searchData = treeToDecode.SearchForDecodedByte(currBit);
                 if(searchData.has_value())

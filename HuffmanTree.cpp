@@ -139,6 +139,11 @@ public:
     std::optional<uint8_t> SearchForDecodedByte(bool aBit){
         if(not IsTreeFormed())
             return {};
+        
+        // Handle Single Node Tree
+        if(m_searchNode->data.has_value())
+            return m_searchNode->data;
+
         auto nextNode = aBit ? m_searchNode->right : m_searchNode->left;
         if(nextNode == nullptr)
             throw std::runtime_error("Bad Search Happends");
